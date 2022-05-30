@@ -11,4 +11,5 @@ To install redux
 
 ![UML](./uml/uml-36.jpg)
 
-
+## netlify Link Lab 36
+[netlify link](https://6294bd9f5ebee32be0176f00--storied-granita-e88875.netlify.app/)
