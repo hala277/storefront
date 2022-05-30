@@ -18,7 +18,7 @@ const Product = props => {
                  
                     if (props.activeCategory === prod.category)
                         return (
-                            <Card key={i} elevation={3} style={{marginTop:'100px'}}>
+                            <Card key={i} elevation={3} style={{marginTop:'100px',marginBottom:'100px'}}>
                                
                                 <CardMedia image={prod.image} height="250" width="400" component='img' />
                                 <CardContent>
