@@ -17,7 +17,7 @@ export default function Header() {
         <>
             <AppBar position="static" style={{backgroundColor:'black'}}>
                 <Toolbar variant="dense" >
-                    <Typography  style={{marginRight:'75%'}} variant="h3" color="inherit" component="div">
+                    <Typography  style={{marginRight:'75%'}} variant="h5" color="inherit" component="div">
                         OUR STORE
                     </Typography>
 
