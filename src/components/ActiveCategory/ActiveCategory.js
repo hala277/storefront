@@ -7,9 +7,9 @@ const ActiveCategory = props => {
     return (
         <>
             {props.activeCategory &&
-                // <AppBar position="static" style={{ height:'40px'}}>
+               
                     <Typography variant="h6" style={{ color:'gray'}}> Browse our Categories:{props.activeCategory}</Typography>
-                // </AppBar>
+               
             }
         </>
     )
