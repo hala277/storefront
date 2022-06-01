@@ -3,16 +3,16 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
+// import Badge from '@mui/material/Badge';
 
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-
-
-
+// import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { connect } from 'react-redux';
 
 
 
-export default function Header() {
+
+
+ function Header(props) {
     return (
         <>
             <AppBar position="static" style={{backgroundColor:'black'}}>
@@ -21,15 +21,24 @@ export default function Header() {
                         OUR STORE
                     </Typography>
 
-               <div style={{marginRight:'100px'}}>
-                    <IconButton aria-label="cart" size='large' edge='start' color='inherit'   >
-                        <Badge badgeContent={4} color="secondary" >
+               <div style={{marginRight:'90px'}}>
+                    <IconButton aria-label="cart" size='small' edge='start' color='inherit'   >
+                    CART({props.Cart.length})
+                        {/* <Badge badgeContent={props.Cart.length} color="secondary" >
+                           
                             <ShoppingCartIcon />
-                        </Badge>
+                        </Badge> */}
                     </IconButton>
+                   
                     </div>
                 </Toolbar>
             </AppBar>
         </>
     )
 }
+
+const mapStateToProps = state => ({
+    Cart : state.cart
+});
+
+export default connect(mapStateToProps)(Header);
