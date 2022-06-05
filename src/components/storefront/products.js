@@ -1,19 +1,30 @@
-import { connect } from "react-redux";
+import { connect,useSelector,useDispatch } from "react-redux";
 import { Grid, Card } from '@mui/material';
 import { CardContent, CardMedia, Typography, CardActions, Button } from "@mui/material";
 import { addTo } from '../../store/cart';
+import { useEffect } from "react";
+import {getProd} from '../../store/products';
+
+
 
 
 const Product = props => {
-    console.log(props.products, 'yyyyyyyyyyyyyyy')
-    console.log(props.activeCategory, 'actiiiveeeeeee')
+    // console.log(props.products, 'yyyyyyyyyyyyyyy')
+    // console.log(props.activeCategory, 'actiiiveeeeeee')
+
+    const dispatch = useDispatch();
+    const products = useSelector(state => state.products);
+
+    useEffect(() => {
+        dispatch(getProd());
+    },[dispatch]);
 
     return (
         <>
             {/* <img>{prod.image}</img> */}
             <Grid container spacing={1} direction='row' justifyContent='space-evenly' alignItems='center' >
 
-                {props.products.map((prod, i) => {
+                {products.map((prod, i) => {
 
 
                     if (props.activeCategory === prod.category)
@@ -45,7 +56,7 @@ const Product = props => {
 
 }
 const mapStateToProps = state => ({
-    products: state.store.products,
+    // products: state.store.products,
     activeCategory: state.store.activeCategory
 });
 

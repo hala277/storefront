@@ -1,4 +1,4 @@
-import { active } from '../../store/products';
+import { active } from '../../store/categories';
 import { connect } from 'react-redux';
 import{Breadcrumbs,Link, Typography} from '@mui/material'
 const Categories = props => {
