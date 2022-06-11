@@ -3,31 +3,35 @@ import { Grid, Card } from '@mui/material';
 import { CardContent, CardMedia, Typography, CardActions, Button } from "@mui/material";
 import { addTo } from '../../store/cart';
 import { useEffect } from "react";
-import {getProd} from '../../store/products';
+import {getProducts} from '../../store/products';
+import { Link } from 'react-router-dom';
 
 
 
 
 const Product = props => {
-    // console.log(props.products, 'yyyyyyyyyyyyyyy')
-    // console.log(props.activeCategory, 'actiiiveeeeeee')
+    // console.log(getProd, 'yyyyyyyyyyyyyyy')
+    console.log(props, 'actiiiveeeeeee')
 
-    const dispatch = useDispatch();
-    const products = useSelector(state => state.products);
+    const {activeCategory , products, addTo , getProducts} = props;
+    // const dispatch = useDispatch();
+    // const products = useSelector(state => state.products);
+    console.log(products, 'yyyyyyyyyyyyyyy')
 
     useEffect(() => {
-        dispatch(getProd());
-    },[dispatch]);
+        getProducts(activeCategory);
+    },[activeCategory,getProducts]);
 
     return (
         <>
-            {/* <img>{prod.image}</img> */}
+      
+            {/* <img>{products.image}</img> */}
             <Grid container spacing={1} direction='row' justifyContent='space-evenly' alignItems='center' >
 
                 {products.map((prod, i) => {
+                
 
-
-                    if (props.activeCategory === prod.category)
+                    if (prod.activeCategory === prod.category)
                         return (
                             <Card key={i} elevation={3} style={{ marginTop: '100px', marginBottom: '100px' }}>
 
@@ -41,8 +45,8 @@ const Product = props => {
                                 </CardContent>
 
                                 <CardActions>
-                                    <Button size="small" onClick={() =>props.addTo(prod) }>ADD TO CART</Button>
-                                    <Button size="small">VIEW DETAILS</Button>
+                                    <Button size="small" onClick={() => addTo(prod) }>ADD TO CART</Button>
+                                    <Button size="small" component={Link} to={`/products/${products.id}`}>VIEW DETAILS</Button>
                                 </CardActions>
                             </Card>
                         )
@@ -56,10 +60,10 @@ const Product = props => {
 
 }
 const mapStateToProps = state => ({
-    // products: state.store.products,
-    activeCategory: state.store.activeCategory
+    products: state.products.products,
+    activeCategory: state.categories.activeCategory
 });
 
-const mapDispatchToProps = {addTo};
+const mapDispatchToProps = {addTo , getProducts};
 
 export default connect(mapStateToProps,mapDispatchToProps)(Product);

@@ -1,19 +1,19 @@
 import { connect } from "react-redux";
-import { remove } from '../../store/cart'
+import { removeFrom } from '../../store/cart'
 import {Card,Typography,CardActions} from '@mui/material'
 import { Button } from "@mui/material";
 
-const Cart = props => {
-    console.log(props.Cart,'carttttttttttt')
+const Cart = ({removeFrom,cart}) => {
+    // console.log(props,'carttttttttttt')
 return(
    
     <Card elevation={3}>
-{props.Cart.map(item => {
+{cart.items.map(item => {
     return(
        <CardActions>
                 <Typography>{item.name}</Typography>
             
-            <Button onClick={() => props.remove(item)} style={{color:'red'}}> x </Button>
+            <Button onClick={() => removeFrom(item)} style={{color:'red'}}> x </Button>
             </CardActions>
     )
 })}
@@ -22,9 +22,9 @@ return(
 }
 
 const mapStateToProps = state => ({
-    Cart:state.cart
+    cart:state.cart
 }) ;
 
-const mapDispatchToProps = {remove};
+const mapDispatchToProps = {removeFrom};
 
 export default connect(mapStateToProps,mapDispatchToProps)(Cart);
