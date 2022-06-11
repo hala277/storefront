@@ -1,6 +1,24 @@
-import axios from 'axios';
+// import axios from 'axios';
+import superagent from 'superagent';
 
-const URL = 'https://hala-api-server.herokuapp.com/prod';
+export const getProdAction = payload => {
+    return {
+        type: 'GETDATA',
+        payload:payload,
+    }
+}
+
+const URL = 'https://app-auth-obieda.herokuapp.com/api/v1/products';
+
+export const getProd = () => (dispatch,state) => {
+return superagent.get(URL).then(result => {
+    dispatch(getProdAction(result.body))
+})
+}
+
+
+
+
 
 const initialState = [];
 
@@ -15,17 +33,6 @@ function productsAPIRed(state = initialState, action) {
     }
 }
 
-export const getProd = () => async(dispatch,state) => {
-    let response = await axios.get(URL);
-    let getResponse = response.data;
-    dispatch(getProdAction(getResponse));
-}
 
-export function getProdAction(products){
-    return {
-        type: 'GETDATA',
-        payload:products,
-    }
-}
 
 export default productsAPIRed;
