@@ -1,31 +1,73 @@
-import axios from 'axios';
+// import axios from 'axios';
+import superagent from 'superagent';
 
-const URL = 'https://hala-api-server.herokuapp.com/prod';
+// export const getProdAction = payload => {
+//     return {
+//         type: 'GETDATA',
+//         payload:payload,
+//     }
+// }
 
-const initialState = [];
+// const URL = 'https://app-auth-obieda.herokuapp.com/api/v1/products';
 
-function productsAPIRed(state = initialState, action) {
-    const { type, payload } = action;
+// export const getProd = () => (dispatch,state) => {
+// return superagent.get(URL).then(result => {
+//     dispatch(getProdAction(result.body))
+// })
+// }
 
-    switch (type) {
-        case 'GETDATA':
-            return payload;
-        default:
-            return state;
+
+
+
+
+// const initialState = [];
+
+// function productsAPIRed(state = initialState, action) {
+//     const { type, payload } = action;
+
+//     switch (type) {
+//         case 'GETDATA':
+//             return payload;
+//         default:
+//             return state;
+//     }
+// }
+
+
+
+// export default productsAPIRed;
+
+import { createSlice } from '@reduxjs/toolkit'
+
+const prodSlice = createSlice({
+  name: 'products',
+  initialState: { products: [], activeProd: {} },
+  reducers: {
+    add(state, action) {
+      return state.map(product => product.name === action.payload.name ? action.payload : product);
+    },
+    setProd(state, action) {
+      state.products = action.payload;
+    },
+    setActiveProd(state, action) {
+      state.products = action.payload;
     }
-}
+  }
+})
 
-export const getProd = () => async(dispatch,state) => {
-    let response = await axios.get(URL);
-    let getResponse = response.data;
-    dispatch(getProdAction(getResponse));
-}
+export const getProducts = (category) => async dispatch => {
+  let response = await superagent.get(`https://app-auth-obieda.herokuapp.com/api/v1/products`);
+  let records = response.body.results || [];
+  let products = records.filter(product => product.category === category && product.inventoryCount > 0);
+  dispatch(setProd(products));
+};
 
-export function getProdAction(products){
-    return {
-        type: 'GETDATA',
-        payload:products,
-    }
-}
+export const getProduct = (id) => async dispatch => {
+  let response = await superagent.get(`https://app-auth-obieda.herokuapp.com/api/v1/products/${id}`);
+  let record = response.body || {};
+  dispatch(setActiveProd(record));
+};
 
-export default productsAPIRed;
+export const { add, setActiveProd, setProd } = prodSlice.actions
+
+export default prodSlice.reducer
